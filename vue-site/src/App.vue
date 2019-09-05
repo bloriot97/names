@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <SearchBar :names=nameInfo></SearchBar>
     <NameScatterChart
       :nameInfo=nameInfo
       v-on:select="selectName($event)"
@@ -16,6 +17,7 @@
 import NameScatterChart from './components/NameScatterChart.vue'
 import NameUsageChart from './components/NameUsageChart'
 import NameInfo from './components/NameInfo.vue'
+import SearchBar from './components/SearchBar.vue'
 
 import * as d3 from 'd3'
 
@@ -24,7 +26,8 @@ export default {
   components: {
     NameScatterChart,
     NameUsageChart,
-    NameInfo
+    NameInfo,
+    SearchBar
   },
   data() {
     return {

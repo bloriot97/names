@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>
-            {{name}} ({{gender}})
+            {{name}}
         </h3>
         <svg id="lineplot_area"
              :height='height'

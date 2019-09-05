@@ -66,7 +66,7 @@ export default {
   stroke: black;
   stroke-width: 0.5;
 }
-.name.active {
+.name:hover {
   stroke: black;
   stroke-width: 1.5;
 }
