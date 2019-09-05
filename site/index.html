@@ -2,12 +2,36 @@
 
 <!-- Add a svg area, empty -->
 <div id="scatter_area"></div>
-<div id="lineplot_area"></div>
-
+<div class="info">
+  <div id="lineplot_area"></div>
+  <ul id="name_info">
+    <li>
+      <div class="info_line">
+        <div class="info_title">
+          Name :
+        </div>
+        <div class="info_value">
+          Some name
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="info_line">
+        <div class="info_title">
+          Gender :
+        </div>
+        <div class="info_value">
+          Pansexual
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v4.js"></script>
 
 <script>
+var name_info
 
 // set the dimensions and margins of the graph
 var margin = {top: 10, right: 40, bottom: 30, left: 30},
@@ -26,7 +50,7 @@ var svG = d3.select("#scatter_area")
 svG.append("rect")
     .attr("width", "100%")
     .attr("height", "100%")
-    .attr("fill", "gray");
+    .attr("fill", "white");
 
 
 svG
@@ -37,6 +61,7 @@ svG
 // Create data
 d3.csv("info.csv", function(error, data) {
   console.log(data)
+  name_info = data
 
   console.log(data.map(d => +d.x))
 
@@ -104,6 +129,10 @@ d3.csv("info.csv", function(error, data) {
 <script type="text/javascript" src="lineplot.js"> </script>
 
 <style>
+  .info {
+    display: flex;
+    flex-direction: row;
+  }
   .name {
     stroke: black;
     stroke-width: 0.5;
@@ -111,6 +140,10 @@ d3.csv("info.csv", function(error, data) {
   .name.active {
     stroke: black;
     stroke-width: 1.5;
+  }
+  .info_line {
+    display: flex;
+    flex-direction: row;
   }
   .tooltip {
     position: absolute;
