@@ -11,6 +11,7 @@
         :cy='y(d.y)'
         :r='scale(d.count)'
         :class="[d.sexe == 1 ? 'male' : 'female', 'name']"
+        v-on:mouseover="$emit('select', d)"
       >
       </circle>
     </g>
@@ -31,19 +32,7 @@ export default {
       width: 600,
     }
   },
-  methodes: {
-  },
   computed: {
-    getBounds() {
-      let [minX, maxX] = d3.extent(this.nameInfo.map(d => d.x))
-      let [minY, maxY] = d3.extent(this.nameInfo.map(d => d.y))
-      return {
-        minX,
-        maxX,
-        minY,
-        maxY,
-      }
-    },
     x() {
       let [minX, maxX] = d3.extent(this.nameInfo.map(d => d.x))
       const x = d3.scaleTime().range([0, this.width]);
@@ -68,10 +57,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .male {
-  fill: #FF6088
+  fill: #3498db
 }
 .female {
-  fill: #3498db
+  fill: #FF6088
 }
 .name {
   stroke: black;

@@ -1,29 +1,46 @@
 <template>
   <div id="app">
-    <NameScatterChart :nameInfo=nameInfo>
+    <NameScatterChart
+      :nameInfo=nameInfo
+      v-on:select="selectName($event)"
+    >
     </NameScatterChart>
+    <div v-if="nameUsage">
+      <NameUsageChart :name=selectedName :gender=selectedGender :nameUsage=nameUsage></NameUsageChart>
+    </div>
+    <NameInfo :information=nameInformation></NameInfo>
   </div>
 </template>
 
 <script>
 import NameScatterChart from './components/NameScatterChart.vue'
+import NameUsageChart from './components/NameUsageChart'
+import NameInfo from './components/NameInfo.vue'
+
 import * as d3 from 'd3'
 
 export default {
   name: 'app',
   components: {
-    NameScatterChart
+    NameScatterChart,
+    NameUsageChart,
+    NameInfo
   },
   data() {
     return {
-      nameInfo: []
+      nameInfo: [],
+      nameUsage: null,
+      selectedName: 'BENJAMIN',
+      selectedGender: 1,
+      nameInformation: {}
     };
   },
   mounted() {
-    this.fetchData();
+    this.fetchNameInfo();
+    this.fetchNameUsage();
   },
   methods: {
-    async fetchData() {
+    async fetchNameInfo() {
       let data = await d3.csv("info.csv");
       data.forEach(function(d) {
         d.x = +d.x
@@ -31,6 +48,32 @@ export default {
         d.count = +d.count
       });
       this.nameInfo = data;
+    },
+    async fetchNameUsage() {
+      let data = await d3.csv("name_usage.csv");
+      data.forEach(function (d) {
+        let series = new Array()
+        for (let [key, value] of Object.entries(d)) {
+          if (key != 'name' && key != 'sexe') {
+            d[key] = +value
+            series.push({'date': new Date(+key, 1), 'value': d[key]})
+          }
+        }
+        d.series = series
+      });
+      this.nameUsage = data;
+    },
+    selectName(node) {
+      this.selectedName = node.name_index
+      this.selectedGender = node.sexe_index
+
+      let id = 0;
+      for (let i = 0; i < this.nameInfo.length; i++) {
+        if (this.nameInfo[i].name_index == this.selectedName && this.nameInfo[i].sexe_index == this.selectedGender) {
+          id = i;
+        }
+      }
+      this.nameInformation = this.nameInfo[id]
     }
   }
 }
@@ -43,6 +86,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 </style>
