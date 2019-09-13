@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <SearchBar :names=nameInfo></SearchBar>
+    <SearchBar :names=nameInfo  v-on:select="selectName($event)"></SearchBar>
     <NameScatterChart
       :nameInfo=nameInfo
       v-on:select="selectName($event)"
@@ -68,7 +68,7 @@ export default {
     },
     selectName(node) {
       this.selectedName = node.name_index
-      this.selectedGender = node.sexe_index
+      this.selectedGender = +node.sexe_index
 
       let id = 0;
       for (let i = 0; i < this.nameInfo.length; i++) {

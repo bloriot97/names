@@ -52,11 +52,12 @@
         },
         methods: {
             hideSuggestions() {
-                setTimeout(function(){ this.displaySuggestions = false }.bind(this), 100)
+                setTimeout(function(){ this.displaySuggestions = false }.bind(this), 300)
             },
             selectName(name, gender){
                 this.name = name
                 this.gender = gender
+                this.$emit('select', {name_index: name, sexe_index: gender})
             }
         }
     }
