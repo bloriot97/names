@@ -1,15 +1,43 @@
 <template>
   <div id="app">
-    <SearchBar :names=nameInfo  v-on:select="selectName($event)"></SearchBar>
-    <NameScatterChart
-      :nameInfo=nameInfo
-      v-on:select="selectName($event)"
-    >
-    </NameScatterChart>
-    <div v-if="nameUsage">
-      <NameUsageChart :name=selectedName :gender=selectedGender :nameUsage=nameUsage></NameUsageChart>
+    <div id="header">
+      <SearchBar :names=nameInfo  v-on:select="selectName($event)"></SearchBar>
     </div>
-    <NameInfo :information=nameInformation></NameInfo>
+    <div class="body">
+      <div id="general_info" class="side">
+        <h2>
+          What do i see here?
+        </h2>
+        <div>
+          <p>
+            Here you can see a visualisation of the trend for french names from 1900 until 2017.
+          </p>
+          <p>
+            The closer two dots are on the visualisation the more similar their trend are (t-SNE).
+            The size depends on the total number of babies who received the names.
+          </p>
+          <p>
+            For clarity reasons, I removed the names given less that 1000 times, so don't panic if you don't see your names,
+            it means you are special 🙃.
+          </p>
+        </div>
+      </div>
+      <div id="scatter_container">
+        <NameScatterChart
+                :nameInfo=nameInfo
+                v-on:select="selectName($event)"
+        />
+      </div>
+      <div id="name_info" class="side">
+        <h2>
+          Name's Information
+        </h2>
+        <div v-if="nameUsage">
+          <NameUsageChart :name=selectedName :gender=selectedGender :nameUsage=nameUsage></NameUsageChart>
+        </div>
+        <NameInfo :information=nameInformation></NameInfo>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -83,12 +111,37 @@ export default {
 </script>
 
 <style>
+  body {
+    margin: 0;
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 20px;
+
 }
+  .body{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+  }
+  #scatter_container{
+    flex-grow: 1;
+  }
+  .side {
+    padding: 0px 20px;
+  }
+  .side > h2 {
+    margin-top: 0;
+  }
+  #header {
+    background-color: #2c3e50;
+    padding: 10px;
+  }
+  #general_info {
+    max-width: 300px;
+    text-align: justify;
+  }
 </style>

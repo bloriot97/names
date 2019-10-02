@@ -47,7 +47,7 @@
                         suggestions.push({'name': this.names[i].name_index, 'gender': this.names[i].sexe_index})
                     }
                 }
-                this.suggestions = suggestions.slice(0, 9);
+                this.suggestions = suggestions.slice(0, 50);
             },
         },
         methods: {
@@ -67,7 +67,6 @@
     .input_wrapper {
         width: 100%;
         text-align: center;
-        margin-bottom: 2em;
     }
     input[type=text] {
         width: 400px;
@@ -75,6 +74,10 @@
         transition: width 0.4s ease-in-out;
         padding: 15px;
         text-align: center;
+        background-color: #ffffff;
+        color: #2c3e50;
+        border: 0;
+        border-bottom: 2px solid #182431;
     }
 
     /* When the input field gets focus, change its width to 100% */
@@ -83,24 +86,27 @@
     }
 
     .name_dropdown {
-        width: 436px;
+        width: 430px;
         left: 50%;
-        margin-left: -218px;
+        margin-left: -215px;
         display: block;
         position: absolute;
+        max-height: 300px;
+        overflow: scroll;
+        color: #2c3e50;
     }
     .name_dropdown > ul {
         padding: 0;
         list-style-type: none;
-        background-color: #FFFFFFBB;
+        background-color: #ffffffee;
         width: 100%;
         margin: 0;
     }
     .name_dropdown > ul > li {
-        background-color: #FFFFFFBB;
+        background-color: #ffffffee;
         padding: 5px 0;
     }
     .name_dropdown > ul > li:hover {
-        background-color: #EEEEEEBB;
+        background-color: rgba(249, 249, 249, 0.93);
     }
 </style>
