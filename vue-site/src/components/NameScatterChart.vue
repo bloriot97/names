@@ -3,7 +3,7 @@
     :height='height'
     :width='width'
   >
-    <g>
+    <g id="scatter_content">
       <circle
         v-for='d in nameInfo'
         v-bind:key='d.name + d.sexe'
@@ -30,6 +30,7 @@ export default {
     return {
       height: 600,
       width: 600,
+      svg: null,
     }
   },
   computed: {
@@ -50,6 +51,19 @@ export default {
        .domain(d3.extent(this.nameInfo.map(d => d.count)))
        .range([2, 7]);
     }
+  },
+  mounted() {
+    this.svg = d3.select('#scatter_area')
+    this.g = d3.select('#scatter_content')
+    const zoom = d3.zoom()
+        .scaleExtent([0.1, 10]) //zoom limit
+        .on('zoom', function() {
+          this.g.style('stroke-width', `${1.5 / d3.event.transform.k}px`)
+          this.g.attr('transform', d3.event.transform) // updated for d3 v4
+        }.bind(this))
+
+    this.svg.call(zoom)
+
   }
 }
 </script>
@@ -57,10 +71,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .male {
-  fill: #3498db
+  fill: #3498db77
 }
 .female {
-  fill: #FF6088
+  fill: #FF608877
 }
 .name {
   stroke: black;

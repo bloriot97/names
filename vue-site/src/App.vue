@@ -33,9 +33,16 @@
           Name's Information
         </h2>
         <div v-if="nameUsage">
-          <NameUsageChart :name=selectedName :gender=selectedGender :nameUsage=nameUsage></NameUsageChart>
+          <NameUsageChart
+                  :name=selectedName
+                  :gender=selectedGender
+                  :nameUsage=nameUsage
+          />
         </div>
-        <NameInfo :information=nameInformation></NameInfo>
+        <NameInfo
+                :information=nameInformation
+                :neighbours=neighbours
+        />
       </div>
     </div>
   </div>
@@ -63,7 +70,8 @@ export default {
       nameUsage: null,
       selectedName: 'BENJAMIN',
       selectedGender: 1,
-      nameInformation: {}
+      nameInformation: {},
+      neighbours: []
     };
   },
   mounted() {
@@ -105,6 +113,18 @@ export default {
         }
       }
       this.nameInformation = this.nameInfo[id]
+
+
+      this.neighbours = this.nameInfo.map(function(info, i) {
+        const delta_x = info.x - this.nameInformation.x;
+        const delta_y = info.y - this.nameInformation.y;
+        return {dist: Math.sqrt(delta_x*delta_x + delta_y*delta_y), index: i}
+      }.bind(this))
+        .sort((x, y) => x.dist > y.dist ? 1 : x.dist == y.dist ? 0 : -1)
+        .slice(1,6)
+        .map(function(x)  {
+          return this.nameInfo[x.index]
+        }.bind(this))
     }
   }
 }

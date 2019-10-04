@@ -59,12 +59,12 @@
         methods: {
             updateData: function () {
                 let id = 0;
-                for (let i = 0; i < this.nameUsage.length; i++) {
+                for (let i = 0; i < this.nameUsage.length ; i++) {
                     if (this.nameUsage[i].name == this.name && this.nameUsage[i].sexe == this.gender) {
                         id = i;
                     }
                 }
-                this.series = this.valueline(this.nameUsage[id].series)
+                this.series = this.valueline(this.nameUsage[id].series.slice(0, this.nameUsage[id].series.length - 1))
             }
         }
     }
