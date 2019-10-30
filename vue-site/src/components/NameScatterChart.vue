@@ -10,6 +10,7 @@
         :cx='x(d.x)'
         :cy='y(d.y)'
         :r='scale(d.count)'
+        :rInit='scale(d.count)'
         :class="[d.sexe == 1 ? 'male' : 'female', 'name']"
         v-on:mouseover="$emit('select', d)"
       >
@@ -30,6 +31,7 @@ export default {
     return {
       height: 600,
       width: 600,
+      zoomScale: 1,
       svg: null,
     }
   },
@@ -56,10 +58,16 @@ export default {
     this.svg = d3.select('#scatter_area')
     this.g = d3.select('#scatter_content')
     const zoom = d3.zoom()
-        .scaleExtent([0.1, 10]) //zoom limit
+        .scaleExtent([0.3, 20]) //zoom limit
         .on('zoom', function() {
           this.g.style('stroke-width', `${1.5 / d3.event.transform.k}px`)
           this.g.attr('transform', d3.event.transform) // updated for d3 v4
+          let zoomScale = d3.event.transform.k
+          d3.selectAll('.name').each(function() {
+            let e = d3.select(this);
+            //console.log(e.attr("rInit"))
+            e.attr('r', e.attr("rInit") / (1+(Math.log(zoomScale)/1.5)))
+          })
         }.bind(this))
 
     this.svg.call(zoom)
