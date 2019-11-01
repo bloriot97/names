@@ -4,7 +4,7 @@
             <span class="info_title">Name : </span> {{information.name}}
         </div>
         <div>
-            <span class="info_title">Max : </span> {{information.max}} (in {{information.idxmax}})
+            <span class="info_title">Max : </span> {{information.max}} (in {{information.idmax}})
         </div>
         <div>
             <span class="info_title">Neighbours : </span>

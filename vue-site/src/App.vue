@@ -84,6 +84,7 @@ export default {
       data.forEach(function(d) {
         d.x = +d.x
         d.y = +d.y
+        d.idmax = +d.idmax
         d.count = +d.count
       });
       this.nameInfo = data;
@@ -145,13 +146,12 @@ export default {
   .body{
     display: flex;
     justify-content: space-between;
-    padding-top: 20px;
   }
   #scatter_container{
     flex-grow: 1;
   }
   .side {
-    padding: 0px 20px;
+    padding: 20px 20px 0px 20px;
   }
   .side > h2 {
     margin-top: 0;

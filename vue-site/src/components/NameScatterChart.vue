@@ -12,6 +12,8 @@
         :r='scale(d.count)'
         :rInit='scale(d.count)'
         :class="[d.sexe == 1 ? 'male' : 'female', 'name']"
+        :fill="colorScale(d.idmax)"
+        fill-opacity="0.8"
         v-on:mouseover="$emit('select', d)"
       >
       </circle>
@@ -21,6 +23,7 @@
 
 <script>
 import * as d3 from 'd3'
+import { interpolateSpectral } from 'd3-scale-chromatic';
 
 export default {
   name: 'NameScatterChart',
@@ -29,8 +32,8 @@ export default {
   },
   data() {
     return {
-      height: 600,
-      width: 600,
+      height: 800,
+      width: 800,
       zoomScale: 1,
       svg: null,
     }
@@ -52,6 +55,13 @@ export default {
       return d3.scaleLog()
        .domain(d3.extent(this.nameInfo.map(d => d.count)))
        .range([2, 7]);
+    },
+    colorScale() {
+      let [minX, maxX] = d3.extent(this.nameInfo.map(d => d.idmax));
+      let color = function (c) {
+        return interpolateSpectral((c-minX) / (maxX - minX));
+      }
+      return color;
     }
   },
   mounted() {
@@ -78,12 +88,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  /*
 .male {
   fill: #3498db77
 }
 .female {
   fill: #FF608877
-}
+}*/
 .name {
   stroke: black;
   stroke-width: 0.5;
