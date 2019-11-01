@@ -24,9 +24,13 @@
       </div>
       <div id="scatter_container">
         <NameScatterChart
+                v-if="loaded"
                 :nameInfo=nameInfo
                 v-on:select="selectName($event)"
         />
+        <div v-else>
+          <Loading/>
+        </div>
       </div>
       <div id="name_info" class="side">
         <h2>
@@ -52,6 +56,7 @@
 import NameScatterChart from './components/NameScatterChart.vue'
 import NameUsageChart from './components/NameUsageChart'
 import NameInfo from './components/NameInfo.vue'
+import Loading from './components/Loading.vue'
 import SearchBar from './components/SearchBar.vue'
 
 import * as d3 from 'd3'
@@ -62,7 +67,8 @@ export default {
     NameScatterChart,
     NameUsageChart,
     NameInfo,
-    SearchBar
+    SearchBar,
+    Loading,
   },
   data() {
     return {
@@ -71,15 +77,20 @@ export default {
       selectedName: 'BENJAMIN',
       selectedGender: 1,
       nameInformation: {},
-      neighbours: []
+      neighbours: [],
+      loaded: false,
     };
   },
   mounted() {
-    this.fetchNameInfo();
-    this.fetchNameUsage();
+    this.fetchData();
   },
   methods: {
-    async fetchNameInfo() {
+    async fetchData() {
+      this.nameInfo = await this.loadNameInfo();
+      this.nameUsage = await this.loadNameUsage();
+      this.loaded = true;
+    },
+    async loadNameInfo() {
       let data = await d3.csv("info.csv");
       data.forEach(function(d) {
         d.x = +d.x
@@ -87,9 +98,9 @@ export default {
         d.idmax = +d.idmax
         d.count = +d.count
       });
-      this.nameInfo = data;
+      return data;
     },
-    async fetchNameUsage() {
+    async loadNameUsage() {
       let data = await d3.csv("name_usage.csv");
       data.forEach(function (d) {
         let series = new Array()
@@ -101,7 +112,7 @@ export default {
         }
         d.series = series
       });
-      this.nameUsage = data;
+      return data;
     },
     selectName(node) {
       this.selectedName = node.name_index
