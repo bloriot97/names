@@ -35,7 +35,7 @@ jobs:
         cd names
         git checkout gh-pages
         rm -rf ./*
-        cp -r ../dist/* ./
+        cp -r ../vue-site/dist/* ./
         git config --global user.email "bloriot97@gmail.com"
         git config --global user.name "GH CI Benjamin Loriot"
         git add .
