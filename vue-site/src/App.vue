@@ -2,31 +2,27 @@
   <div id="app">
     <div id="header">
       <SearchBar :names=nameInfo  v-on:select="selectName($event)"></SearchBar>
+      <LanguageSwitch id='language_switch' />
     </div>
     <div class="body">
       <div id="general_info" class="side">
         <h2>
-          What do i see here?
+          {{$t('info.title')}}
         </h2>
         <div>
-          <p>
-            Here you can see a visualisation of the trend for french names from 1900 until 2017.
-          </p>
-          <p>
-            The closer two dots are on the visualisation the more similar their trend are (t-SNE).
-            The size depends on the total number of babies who received the names.
-          </p>
-          <p>
-            For clarity reasons, I removed the names given less that 1000 times, so don't panic if you don't see your names,
-            it means you are special 🙃.
+          <p
+            v-for="(content, id) in $t('info.content')"
+            v-bind:key="id"
+          >
+            {{content}}
           </p>
         </div>
       </div>
       <div id="scatter_container">
         <NameScatterChart
-                v-if="loaded"
-                :nameInfo=nameInfo
-                v-on:select="selectName($event)"
+          v-if="loaded"
+          :nameInfo=nameInfo
+          v-on:select="selectName($event)"
         />
         <div v-else>
           <Loading/>
@@ -34,18 +30,18 @@
       </div>
       <div id="name_info" class="side">
         <h2>
-          Name's Information
+          {{$t('nameInformation')}}
         </h2>
         <div v-if="nameUsage">
           <NameUsageChart
-                  :name=selectedName
-                  :gender=selectedGender
-                  :nameUsage=nameUsage
+            :name=selectedName
+            :gender=selectedGender
+            :nameUsage=nameUsage
           />
         </div>
         <NameInfo
-                :information=nameInformation
-                :neighbours=neighbours
+          :information=nameInformation
+          :neighbours=neighbours
         />
       </div>
     </div>
@@ -58,6 +54,7 @@ import NameUsageChart from './components/NameUsageChart'
 import NameInfo from './components/NameInfo.vue'
 import Loading from './components/Loading.vue'
 import SearchBar from './components/SearchBar.vue'
+import LanguageSwitch from './components/LanguageSwitch.vue'
 
 import * as d3 from 'd3'
 
@@ -69,6 +66,7 @@ export default {
     NameInfo,
     SearchBar,
     Loading,
+    LanguageSwitch,
   },
   data() {
     return {
@@ -170,6 +168,13 @@ export default {
   #header {
     background-color: #2c3e50;
     padding: 10px;
+  }
+  #language_switch {
+    display: block;
+    width: 60px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
   }
   #general_info {
     max-width: 300px;

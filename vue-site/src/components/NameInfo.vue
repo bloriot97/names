@@ -1,13 +1,13 @@
 <template>
     <div>
         <div>
-            <span class="info_title">Name : </span> {{information.name}}
+            <span class="info_title">{{$t('name')}} : </span> {{information.name}}
         </div>
         <div>
-            <span class="info_title">Max : </span> {{information.max}} (in {{information.idmax}})
+            <span class="info_title">{{$t('max')}} : </span> {{information.max}} (in {{information.idmax}})
         </div>
         <div>
-            <span class="info_title">Neighbours : </span>
+            <span class="info_title">{{$t('neighbours')}} : </span>
             <ul>
                 <li v-for="(neighbour, i) in neighbours" v-bind:key="i">
                     {{neighbour.name}}

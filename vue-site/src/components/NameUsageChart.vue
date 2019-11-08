@@ -11,6 +11,8 @@
                 <path class="line" :d=series>
 
                 </path>
+                <text x="0" :y="height" class="date">1900</text>
+                <text :x="width-40" :y="height" class="date">2017</text>
             </g>
         </svg>
     </div>
@@ -38,7 +40,7 @@
         },
         created() {
             this.x = d3.scaleTime().range([0, this.width]).domain([new Date(1900, 1), new Date(2018, 1)]);
-            this.y = d3.scaleLinear().range([this.height, 0]);
+            this.y = d3.scaleLinear().range([this.height - 20, 0]);
             this.x.domain([new Date(1900, 1), new Date(2018, 1)]).nice();
             this.y.domain([0, 1]);
             let x = this.x
@@ -75,5 +77,8 @@
         fill: none;
         stroke: steelblue;
         stroke-width: 1.5;
+    }
+    .date {
+        fill: #cccccc;
     }
 </style>

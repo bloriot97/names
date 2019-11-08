@@ -5,7 +5,7 @@
                     type="text"
                     name="search"
                     v-model="name"
-                    placeholder="Search..."
+                    :placeholder="$t('search')"
                     v-on:focus="displaySuggestions = true"
                     v-on:focusout="hideSuggestions"
             >

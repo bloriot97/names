@@ -41,13 +41,13 @@ export default {
   computed: {
     x() {
       let [minX, maxX] = d3.extent(this.nameInfo.map(d => d.x))
-      const x = d3.scaleTime().range([0, this.width]);
-      x.domain([minX, maxX]);
+      const x = d3.scaleTime().range([10 , this.width - 20]);
+      x.domain([minX, maxX ]);
       return x
     },
     y() {
       let [minY, maxY] = d3.extent(this.nameInfo.map(d => d.y))
-      const y = d3.scaleTime().range([this.height, 0]);
+      const y = d3.scaleTime().range([this.height - 20, 10]);
       y.domain([minY, maxY]);
       return y
     },
