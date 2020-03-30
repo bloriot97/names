@@ -39,15 +39,15 @@
             }
         },
         created() {
-            this.x = d3.scaleTime().range([0, this.width]).domain([new Date(1900, 1), new Date(2018, 1)]);
+            this.x = d3.scaleLinear().range([0, this.width]).domain([1900, 2018]);
             this.y = d3.scaleLinear().range([this.height - 20, 0]);
-            this.x.domain([new Date(1900, 1), new Date(2018, 1)]).nice();
+            this.x.domain([1900, 2018]).nice();
             this.y.domain([0, 1]);
             let x = this.x
             let y = this.y
             this.valueline = d3.line()
-                .x(function(d) { return x(d.date); })
-                .y(function(d) { return y(d.value); })
+                .x(function(d) { return x(d[0]); })
+                .y(function(d) { return y(d[1]); })
             this.updateData()
         },
         watch: {

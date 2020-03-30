@@ -13,7 +13,7 @@
         :rInit='scale(d.count)'
         :class="[d.sexe == 1 ? 'male' : 'female', 'name']"
         :fill="colorScale(d.idmax)"
-        fill-opacity="0.8"
+        :id="`name_${d.name_index}_${d.sexe == 1 ? 1 : 2}`"
         v-on:mouseover="$emit('select', d)"
       >
       </circle>
@@ -28,7 +28,9 @@ import { interpolateSpectral } from 'd3-scale-chromatic';
 export default {
   name: 'NameScatterChart',
   props: {
-    nameInfo: Array
+    nameInfo: Array,
+    selectedName: String,
+    selectedNameGender: Number
   },
   data() {
     return {
@@ -62,6 +64,20 @@ export default {
         return interpolateSpectral((c-minX) / (maxX - minX));
       }
       return color;
+    }
+  },
+  watch: {
+    selectedName: function () {
+        this.highlightName()
+    },
+    selectedNameGender: function () {
+        this.highlightName()
+    }
+  },
+  methods: {
+    highlightName() {
+      d3.selectAll(`.name`).attr('selected', null)
+      d3.select(`#name_${this.selectedName}_${this.selectedNameGender}`).attr('selected', true)
     }
   },
   mounted() {
@@ -98,9 +114,15 @@ export default {
 .name {
   stroke: black;
   stroke-width: 0.5;
+  filter: grayscale(0.3);
+  fill-opacity: 0.8;
 }
-.name:hover {
+.name[selected="true"] {
   stroke: black;
   stroke-width: 1.5;
+  filter: saturate(8);
+  fill-opacity: 1;
+  transform: translateX(40);
+  /* fill: inherit; */
 }
 </style>

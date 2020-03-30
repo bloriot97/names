@@ -10,7 +10,7 @@ const messages = {
             content: [
                 `Here you can see a visualisation of the trend for french names from 1900 until 2017.`,
                 `The closer two dots are on the visualisation the more similar their trend are (t-SNE). The size depends on the total number of babies who received the names. `,
-                `For clarity reasons, I removed the names given less that 1000 times, so don't panic if you don't see your names, it means you are special 🙃.`,
+                `For clarity I removed the names given less that 1000 times, so don't panic if you don't see your names, it means you are special 🙃.`,
             ]
         },
         nameInformation: `Name's information`,
@@ -28,7 +28,7 @@ const messages = {
                 `Pour rendre la visualisation plus claire j'ai supprimé les prénoms donnés moins de 1000 fois, donc si vous ne trouvez pas votre prénoms pas de panique, c'est que vous êtes spécial 🙃.`,
             ]
         },
-        nameInformation: `Information du prénoms`,
+        nameInformation: `Information du prénom`,
         name: 'Prénom',
         neighbours: 'Voisins',
         search: 'Chercher...',

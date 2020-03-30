@@ -22,6 +22,8 @@
         <NameScatterChart
           v-if="loaded"
           :nameInfo=nameInfo
+          :selectedName=selectedName
+          :selectedNameGender=selectedGender
           v-on:select="selectName($event)"
         />
         <div v-else>
@@ -105,7 +107,7 @@ export default {
         for (let [key, value] of Object.entries(d)) {
           if (key != 'name' && key != 'sexe') {
             d[key] = +value
-            series.push({'date': new Date(+key, 1), 'value': d[key]})
+            series.push([+key, d[key]])
           }
         }
         d.series = series

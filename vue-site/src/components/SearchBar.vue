@@ -2,12 +2,12 @@
     <div style="text-align: center">
         <div class="input_wrapper">
             <input
-                    type="text"
-                    name="search"
-                    v-model="name"
-                    :placeholder="$t('search')"
-                    v-on:focus="displaySuggestions = true"
-                    v-on:focusout="hideSuggestions"
+                type="text"
+                name="search"
+                v-model="name"
+                :placeholder="$t('search')"
+                v-on:focus="displaySuggestions = true"
+                v-on:focusout="hideSuggestions"
             >
             <div class="name_dropdown" v-if="displaySuggestions">
                 <ul>
@@ -16,7 +16,7 @@
                         v-bind:key='d.name + d.gender'
                         v-on:click="selectName(d.name, d.gender)"
                     >
-                        {{d.name}} ({{d.gender}})
+                        {{d.name}} ({{d.gender == 1 ? 'M' : 'F'}})
                     </li>
                 </ul>
             </div>
