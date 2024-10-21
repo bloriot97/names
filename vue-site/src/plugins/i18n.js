@@ -13,7 +13,7 @@ const messages = {
                 `For clarity I removed the names given less that 1000 times, so don't panic if you don't see your names, it means you are special 🙃.`,
             ]
         },
-        nameInformation: `Name's information`,
+        nameInformation: `Name information`,
         name: 'Name',
         max: 'Max',
         neighbours: 'Neighbours',
@@ -21,11 +21,11 @@ const messages = {
     },
     fr: {
         info: {
-            title: `Qu'es ce que je vois?`,
+            title: `Qu'est-ce que je vois ?`,
             content: [
-                `Vous voyer une visualisation de la mode des prénoms de 1900 à 2017.`,
-                `Au plus deux points sont proches au plus ils ont suivis une mode similaire (t-SNE). La taille dépends du nombre total d'enfants qui otn recu le prénom.`,
-                `Pour rendre la visualisation plus claire j'ai supprimé les prénoms donnés moins de 1000 fois, donc si vous ne trouvez pas votre prénoms pas de panique, c'est que vous êtes spécial 🙃.`,
+                `Vous voyez une visualisation de la mode des prénoms de 1900 à 2017.`,
+                `Deux points sont proches s'ils ont suivi une mode similaire (t-SNE). La taille dépend du nombre total d'enfants qui ont reçu le prénom.`,
+                `Pour rendre la visualisation plus claire, j'ai supprimé les prénoms donnés moins de 1000 fois. Si vous ne trouvez pas votre prénom pas de panique, c'est que vous êtes spécial.`,
             ]
         },
         nameInformation: `Information du prénom`,
